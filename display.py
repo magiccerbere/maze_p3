@@ -22,18 +22,17 @@ class Display():
             for tile in line:
                 y = tile_nb * self.pixel_sprite 
                 if tile == 1:
-                    screen.blit(wall,(x,y))
+                    screen.blit(wall, (x, y))
                 elif tile == 2:
-                    screen.blit(skeleton,(x,y))
+                    screen.blit(skeleton, (x, y))
                 elif tile == 3:
-                    screen.blit(guy,(x,y))
+                    screen.blit(guy, (x, y))
                 elif tile == 4:
-                    screen.blit(depart,(x,y))
+                    screen.blit(depart, (x, y))
                 elif tile == 5:
-                    screen.blit(watchman,(x,y))
+                    screen.blit(watchman, (x, y))
                 tile_nb += 1
             line_nb += 1
-
 
         """Display items. Area for collected items : 600*45(at the bottom)."""
         screen.blit(syringe, (self.syr_pos[0],self.syr_pos[1]))
@@ -49,9 +48,8 @@ class Display():
         macgyver = pygame.image.load("macgyver.png").convert_alpha()
         mg_pos = [i*pixel_sprite for i in mg_pos]
         
-        screen.blit(macgyver, (mg_pos[0],mg_pos[1]))
-        
-        
+        screen.blit(macgyver, (mg_pos[0], mg_pos[1]))
+
     def maze_create():
         """Creating a maze about a Structure file, and transfor the list of string in list of int"""
         with open("structure", "r") as structure:
@@ -63,7 +61,3 @@ class Display():
                         line_maze.append(int(tile))
                 maze.append(line_maze)
         return maze
-    
-
-
-    

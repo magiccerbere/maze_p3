@@ -8,7 +8,6 @@ import pygame
 from pygame.locals import *
 import random
 from display import *
-from macgyver import *
 from watchman import *
 from items import *
 
