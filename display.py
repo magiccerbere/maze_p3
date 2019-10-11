@@ -1,63 +1,65 @@
-class Display():
+from constantes import *
+import pygame
+from pygame.locals import *
+
+class Display:
     """Create the maze and Manage all aspects of display."""
     def __init__(self):
-        self.pixel_sprite = 37
-        self.syr_pos = [syr_pos[0]*self.pixel_sprite, syr_pos[1]*self.pixel_sprite]
-        self.eth_pos = [eth_pos[0]*self.pixel_sprite, eth_pos[1]*self.pixel_sprite]
-        self.pla_pos = [pla_pos[0]*self.pixel_sprite, pla_pos[1]*self.pixel_sprite]
+        self.maze = []
+        self.screen = pygame.display.set_mode(( WIDTH_SCREEN, HEIGHT_SCREEN))
+        self.background = pygame.image.load(BACKGROUND_IMG).convert()
     
-    def update_display(self):
+    def update_display(self, things, character):
         """Update of the display."""
-        skeleton = pygame.image.load("skeleton.png").convert_alpha()
-        guy = pygame.image.load("guy.png").convert_alpha()
-        watchman = pygame.image.load("watchman.png").convert_alpha()
-        syringe = pygame.image.load("syringe.png").convert_alpha()
-        ether = pygame.image.load("ether.png").convert_alpha()
-        plastic = pygame.image.load("plastic_tube").convert_alpha()
+
+        """Background."""
+        self.screen.blit(self.background, (0, 0))
+        
+        skeleton = pygame.image.load(SKELETON_IMG).convert_alpha()
+        guy = pygame.image.load(GUY_IMG).convert_alpha()
+        watchman = pygame.image.load(WATCHMAN_IMG).convert_alpha()
+        syringe = pygame.image.load(SYRINGE_IMG).convert_alpha()
+        ether = pygame.image.load(ETHER_IMG).convert_alpha()
+        plastic_tube = pygame.image.load(PLASTIC_TUBE_IMG).convert_alpha()
+        wall = pygame.image.load(WALL_IMG).convert_alpha()
 
         line_nb = 0
-        for line in maze:
-            x = line_nb * self.pixel_sprite
+        for line in self.maze:
+            y = line_nb * PIXEL_SPRITE
             tile_nb = 0
             for tile in line:
-                y = tile_nb * self.pixel_sprite 
+                x = tile_nb * PIXEL_SPRITE
                 if tile == 1:
-                    screen.blit(wall, (x, y))
+                    self.screen.blit(wall, (x, y))
                 elif tile == 2:
-                    screen.blit(skeleton, (x, y))
+                    self.screen.blit(skeleton, (x, y))
                 elif tile == 3:
-                    screen.blit(guy, (x, y))
-                elif tile == 4:
-                    screen.blit(depart, (x, y))
+                    self.screen.blit(guy, (x, y))
                 elif tile == 5:
-                    screen.blit(watchman, (x, y))
+                    self.screen.blit(watchman, (x, y))
                 tile_nb += 1
             line_nb += 1
 
         """Display items. Area for collected items : 600*45(at the bottom)."""
-        screen.blit(syringe, (self.syr_pos[0],self.syr_pos[1]))
-        screen.blit(ether, (self.eth_pos[0], self.eth_pos[1]))
-        screen.blit(plastic_tube, (self.pla_pos[0], self.pla_pos[1]))
+        self.screen.blit(syringe, (things.syr_pos[0]*PIXEL_SPRITE, things.syr_pos[1]*PIXEL_SPRITE))
+        self.screen.blit(ether, (things.eth_pos[0]*PIXEL_SPRITE, things.eth_pos[1]*PIXEL_SPRITE))
+        self.screen.blit(plastic_tube, (things.pla_pos[0]*PIXEL_SPRITE, things.pla_pos[1]*PIXEL_SPRITE))
 
-        display_mg()
+        self.display_mg(character)
         pygame.display.flip()
 
 
-    def display_mg():
+    def display_mg(self, character):
         """Display MacGiver"""
-        macgyver = pygame.image.load("macgyver.png").convert_alpha()
-        mg_pos = [i*pixel_sprite for i in mg_pos]
-        
-        screen.blit(macgyver, (mg_pos[0], mg_pos[1]))
+        macgyver = pygame.image.load(MACGYVER_IMG).convert_alpha()       
+        self.screen.blit(macgyver, (character.mg_pos[0]*PIXEL_SPRITE, character.mg_pos[1]*PIXEL_SPRITE))
 
-    def maze_create():
+    def maze_create(self):
         """Creating a maze about a Structure file, and transfor the list of string in list of int"""
         with open("structure", "r") as structure:
-            maze = []
             for line in structure:
                 line_maze = []
                 for tile in line:
                     if tile != "\n":
                         line_maze.append(int(tile))
-                maze.append(line_maze)
-        return maze
+                self.maze.append(line_maze)
