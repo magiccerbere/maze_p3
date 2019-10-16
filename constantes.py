@@ -9,12 +9,8 @@ HEIGHT_SCREEN = 600
 WIDTH_SCREEN = 555
 
 """Area for items collected."""
-X_COL = [1,2,3]
+X_COL = [1, 2, 3]
 Y_COL = 15
-
-"""Departure for Mac Gyver"""
-X_START = 0
-Y_START = 0
 
 """Sprite"""
 BACKGROUND_IMG = "background.jpg"
@@ -26,3 +22,4 @@ ETHER_IMG = "ether.png"
 PLASTIC_TUBE_IMG = "plastic_tube.png"
 WALL_IMG = "wall.png"
 MACGYVER_IMG = "macgyver.png"
+GAME_OVER_IMG = "gameover.jpg"
