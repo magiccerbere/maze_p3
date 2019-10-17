@@ -1,10 +1,11 @@
-from constantes import *
+from constants import WIDTH_SCREEN, HEIGHT_SCREEN, BACKGROUND_IMG,\
+    SKELETON_IMG, GUY_IMG, WATCHMAN_IMG, SYRINGE_IMG, ETHER_IMG,\
+    PLASTIC_TUBE_IMG, WALL_IMG, MACGYVER_IMG, PIXEL_SPRITE, GAME_OVER_IMG
 import pygame
-from pygame.locals import *
 
 
 class Display:
-    """Create the maze and Manage all aspects of display."""
+    """Create the maze and manage all the display aspects."""
     def __init__(self):
         self.maze = []
         self.screen = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
@@ -23,7 +24,7 @@ class Display:
         ether = pygame.image.load(ETHER_IMG).convert_alpha()
         plastic_tube = pygame.image.load(PLASTIC_TUBE_IMG).convert_alpha()
         wall = pygame.image.load(WALL_IMG).convert_alpha()
-        mac_gyver = pygame.image.load(MACGYVER_IMG).convert_alpha()     
+        mac_gyver = pygame.image.load(MACGYVER_IMG).convert_alpha()
 
         line_nb = 0
         for line in self.maze:
@@ -71,7 +72,7 @@ class Display:
 
     def gameover(self):
         """Display a screen of end."""
-        
+
         game_over = pygame.image.load(GAME_OVER_IMG).convert()
         self.screen.blit(game_over, (0, 0))
         pygame.display.flip()

@@ -1,8 +1,7 @@
 import pygame
-from pygame.locals import *
-from display import *
-from items import *
-from macgyver import *
+from display import Display
+from items import Items
+from macgyver import MacGyver
 
 
 class GameLoop:
@@ -16,9 +15,6 @@ class GameLoop:
         start = True
         while start:
             pygame.time.Clock().tick(30)
-            self.draw = Display()
-            self.character = MacGyver()
-            self.things = Items()
             self.draw.maze_create()
             self.things.items_create(self.draw.maze)
             while self.character.win is False and self.character.lose is False:
@@ -28,5 +24,8 @@ class GameLoop:
                     self.things.items_colleted(self.character)
             if self.character.lose is True:
                 self.draw.gameover()
+                self.draw = Display()
+                self.character = MacGyver()
+                self.things = Items()                
             else:
                 exit()

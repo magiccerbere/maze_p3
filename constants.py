@@ -8,7 +8,7 @@ PIXEL_SPRITE = 37
 HEIGHT_SCREEN = 600
 WIDTH_SCREEN = 555
 
-"""Area for items collected."""
+"""Area for collected items."""
 X_COL = [1, 2, 3]
 Y_COL = 15
 
