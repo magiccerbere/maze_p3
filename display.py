@@ -1,53 +1,51 @@
+"""Class Display"""
+from pygame import display, image, time
 from constants import WIDTH_SCREEN, HEIGHT_SCREEN, BACKGROUND_IMG,\
     SKELETON_IMG, GUY_IMG, WATCHMAN_IMG, SYRINGE_IMG, ETHER_IMG,\
     PLASTIC_TUBE_IMG, WALL_IMG, MACGYVER_IMG, PIXEL_SPRITE, GAME_OVER_IMG
-import pygame
 
 
 class Display:
     """Create the maze and manage all the display aspects."""
     def __init__(self):
         self.maze = []
-        self.screen = pygame.display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
-        self.background = pygame.image.load(BACKGROUND_IMG).convert()
+        self.screen = display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
+        self.background = image.load(BACKGROUND_IMG).convert()
 
     def update_display(self, things, character):
-        """Update of the display."""
-
-        """Background."""
+        """Update of the display : background and items"""
         self.screen.blit(self.background, (0, 0))
 
-        skeleton = pygame.image.load(SKELETON_IMG).convert_alpha()
-        guy = pygame.image.load(GUY_IMG).convert_alpha()
-        watchman = pygame.image.load(WATCHMAN_IMG).convert_alpha()
-        syringe = pygame.image.load(SYRINGE_IMG).convert_alpha()
-        ether = pygame.image.load(ETHER_IMG).convert_alpha()
-        plastic_tube = pygame.image.load(PLASTIC_TUBE_IMG).convert_alpha()
-        wall = pygame.image.load(WALL_IMG).convert_alpha()
-        mac_gyver = pygame.image.load(MACGYVER_IMG).convert_alpha()
+        skeleton = image.load(SKELETON_IMG).convert_alpha()
+        guy = image.load(GUY_IMG).convert_alpha()
+        watchman = image.load(WATCHMAN_IMG).convert_alpha()
+        syringe = image.load(SYRINGE_IMG).convert_alpha()
+        ether = image.load(ETHER_IMG).convert_alpha()
+        plastic_tube = image.load(PLASTIC_TUBE_IMG).convert_alpha()
+        wall = image.load(WALL_IMG).convert_alpha()
+        mac_gyver = image.load(MACGYVER_IMG).convert_alpha()
 
         line_nb = 0
         for line in self.maze:
-            y = line_nb * PIXEL_SPRITE
+            pos_y = line_nb * PIXEL_SPRITE
             tile_nb = 0
             for tile in line:
-                x = tile_nb * PIXEL_SPRITE
+                pos_x = tile_nb * PIXEL_SPRITE
                 if tile == 1:
-                    self.screen.blit(wall, (x, y))
+                    self.screen.blit(wall, (pos_x, pos_y))
                 elif tile == 2:
-                    self.screen.blit(skeleton, (x, y))
+                    self.screen.blit(skeleton, (pos_x, pos_y))
                 elif tile == 3:
-                    self.screen.blit(guy, (x, y))
+                    self.screen.blit(guy, (pos_x, pos_y))
                 elif tile == 4:
-                    self.screen.blit(mac_gyver, (x, y))
+                    self.screen.blit(mac_gyver, (pos_x, pos_y))
                     character.mg_pos = [line_nb, tile_nb]
                 elif tile == 5:
-                    self.screen.blit(watchman, (x, y))
+                    self.screen.blit(watchman, (pos_x, pos_y))
 
                 tile_nb += 1
             line_nb += 1
 
-        """Display items. Area for collected items : 600*45(at the bottom)."""
         self.screen.blit(syringe, (things.syr_pos[1]*PIXEL_SPRITE,
                                    things.syr_pos[0]*PIXEL_SPRITE))
         self.screen.blit(ether, (things.eth_pos[1]*PIXEL_SPRITE,
@@ -55,7 +53,7 @@ class Display:
         self.screen.blit(plastic_tube, (things.pla_pos[1]*PIXEL_SPRITE,
                                         things.pla_pos[0]*PIXEL_SPRITE))
 
-        pygame.display.flip()
+        display.flip()
 
     def maze_create(self):
         """Creating a maze about a Structure file.
@@ -73,8 +71,8 @@ class Display:
     def gameover(self):
         """Display a screen of end."""
 
-        game_over = pygame.image.load(GAME_OVER_IMG).convert()
+        game_over = image.load(GAME_OVER_IMG).convert()
         self.screen.blit(game_over, (0, 0))
-        pygame.display.flip()
-        pygame.time.wait(1500)
+        display.flip()
+        time.wait(1500)
         self.screen.fill((0, 0, 0))

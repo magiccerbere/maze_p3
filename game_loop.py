@@ -1,4 +1,5 @@
-import pygame
+"""Class GameLoop"""
+from pygame import time
 from display import Display
 from items import Items
 from macgyver import MacGyver
@@ -12,9 +13,10 @@ class GameLoop:
         self.draw = Display()
 
     def game_loop(self):
+        """Launch the game loop and check the victory conditions"""
         start = True
         while start:
-            pygame.time.Clock().tick(30)
+            time.Clock().tick(30)
             self.draw.maze_create()
             self.things.items_create(self.draw.maze)
             while self.character.win is False and self.character.lose is False:
@@ -26,6 +28,6 @@ class GameLoop:
                 self.draw.gameover()
                 self.draw = Display()
                 self.character = MacGyver()
-                self.things = Items()                
+                self.things = Items()
             else:
                 exit()

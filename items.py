@@ -1,4 +1,5 @@
-import random
+"""Class Items"""
+from random import sample
 from constants import X_COL, Y_COL
 
 
@@ -22,7 +23,7 @@ class Items:
                 tile_nb += 1
             line_nb += 1
         self.syr_pos, self.eth_pos, self.pla_pos = \
-            random.sample(possible_tile, k=3)
+            sample(possible_tile, k=3)
 
     def items_colleted(self, character):
         """Compare MacGyver's position with items' position.

@@ -1,4 +1,5 @@
-import pygame
+"Class MacGyver"""
+from pygame import event
 from pygame.locals import QUIT, KEYDOWN, K_UP, K_RIGHT, K_LEFT, K_DOWN
 
 
@@ -14,25 +15,25 @@ class MacGyver:
 
         free_tile = (0, 5)
 
-        for event in pygame.event.get():
-            if event.type == QUIT:
+        for evt in event.get():
+            if evt.type == QUIT:
                 exit()
-            elif event.type == KEYDOWN:
+            elif evt.type == KEYDOWN:
                 previous_mg_pos = list(self.mg_pos)
-                if event.key == K_UP and self.mg_pos[0] != 0 and \
+                if evt.key == K_UP and self.mg_pos[0] != 0 and \
                    draw.maze[self.mg_pos[0]-1][self.mg_pos[1]] in free_tile:
                     self.mg_pos[0] -= 1
 
-                elif event.key == K_DOWN and self.mg_pos[0] != 14 and \
+                elif evt.key == K_DOWN and self.mg_pos[0] != 14 and \
                    draw.maze[self.mg_pos[0]+1][self.mg_pos[1]] in free_tile:
                     self.mg_pos[0] += 1
 
-                elif event.key == K_RIGHT and self.mg_pos[1] != 14 and \
+                elif evt.key == K_RIGHT and self.mg_pos[1] != 14 and \
                     draw.maze[self.mg_pos[0]][self.mg_pos[1]+1] in free_tile:
                     self.mg_pos[1] += 1
 
-                elif event.key == K_LEFT and self.mg_pos[1] != 0 and \
-                    draw.maze[self.mg_pos[0]][self.mg_pos[1]-1] in free_tile:
+                elif evt.key == K_LEFT and self.mg_pos[1] != 0 and \
+                     draw.maze[self.mg_pos[0]][self.mg_pos[1]-1] in free_tile:
                     self.mg_pos[1] -= 1
 
                 if draw.maze[self.mg_pos[0]][self.mg_pos[1]] == 5:

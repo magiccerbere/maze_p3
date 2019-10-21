@@ -4,16 +4,15 @@ Developed by Mickael Sondag for OpenClassRooms' project.
 Released under the WTFPL licence."""
 #! /usr/bin/env python3
 # coding: utf-8
-import pygame
+from pygame import init, display
 from constants import TITLE
 from game_loop import GameLoop
 
 
-
 def main():
     """Screen init."""
-    pygame.init()
-    pygame.display.set_caption(TITLE)
+    init()
+    display.set_caption(TITLE)
     play = GameLoop()
     play.game_loop()
 
