@@ -10,20 +10,17 @@ class Display:
     def __init__(self):
         self.maze = []
         self.screen = display.set_mode((WIDTH_SCREEN, HEIGHT_SCREEN))
-        self.background = image.load(BACKGROUND_IMG).convert()
+        self.skeleton = image.load(SKELETON_IMG).convert_alpha()
+        self.guy = image.load(GUY_IMG).convert_alpha()
+        self.watchman = image.load(WATCHMAN_IMG).convert_alpha()
+        self.wall = image.load(WALL_IMG).convert_alpha()
+        self.mac_gyver = image.load(MACGYVER_IMG).convert_alpha()
 
     def update_display(self, things, character):
         """Update of the display : background and items"""
-        self.screen.blit(self.background, (0, 0))
+        background = image.load(BACKGROUND_IMG).convert()
+        self.screen.blit(background, (0, 0))
 
-        skeleton = image.load(SKELETON_IMG).convert_alpha()
-        guy = image.load(GUY_IMG).convert_alpha()
-        watchman = image.load(WATCHMAN_IMG).convert_alpha()
-        syringe = image.load(SYRINGE_IMG).convert_alpha()
-        ether = image.load(ETHER_IMG).convert_alpha()
-        plastic_tube = image.load(PLASTIC_TUBE_IMG).convert_alpha()
-        wall = image.load(WALL_IMG).convert_alpha()
-        mac_gyver = image.load(MACGYVER_IMG).convert_alpha()
 
         line_nb = 0
         for line in self.maze:
@@ -32,19 +29,23 @@ class Display:
             for tile in line:
                 pos_x = tile_nb * PIXEL_SPRITE
                 if tile == 1:
-                    self.screen.blit(wall, (pos_x, pos_y))
+                    self.screen.blit(self.wall, (pos_x, pos_y))
                 elif tile == 2:
-                    self.screen.blit(skeleton, (pos_x, pos_y))
+                    self.screen.blit(self.skeleton, (pos_x, pos_y))
                 elif tile == 3:
-                    self.screen.blit(guy, (pos_x, pos_y))
+                    self.screen.blit(self.guy, (pos_x, pos_y))
                 elif tile == 4:
-                    self.screen.blit(mac_gyver, (pos_x, pos_y))
+                    self.screen.blit(self.mac_gyver, (pos_x, pos_y))
                     character.mg_pos = [line_nb, tile_nb]
                 elif tile == 5:
-                    self.screen.blit(watchman, (pos_x, pos_y))
+                    self.screen.blit(self.watchman, (pos_x, pos_y))
 
                 tile_nb += 1
             line_nb += 1
+
+        syringe = image.load(SYRINGE_IMG).convert_alpha()
+        ether = image.load(ETHER_IMG).convert_alpha()
+        plastic_tube = image.load(PLASTIC_TUBE_IMG).convert_alpha()
 
         self.screen.blit(syringe, (things.syr_pos[1]*PIXEL_SPRITE,
                                    things.syr_pos[0]*PIXEL_SPRITE))
